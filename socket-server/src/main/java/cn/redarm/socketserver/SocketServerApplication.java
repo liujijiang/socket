@@ -1,12 +1,13 @@
 package cn.redarm.socketserver;
 
 import cn.redarm.socketserver.swing.MyJframe;
-import lombok.SneakyThrows;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.IOException;
 
 @SpringBootApplication
+@EnableScheduling
 public class SocketServerApplication {
 
     public static void main(String[] args) throws IOException {

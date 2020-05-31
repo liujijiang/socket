@@ -5,6 +5,8 @@ import cn.redarm.socketserver.socket.Server;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -19,12 +21,14 @@ public class MyJframe extends JFrame {
     // 按钮
     private JButton jButton1;
     private JButton jButton2;
-    private JButton jButton3;
+
+    private JFileChooser jFileChooser;
 
     // Port
     private JTextField jTextField2;
 
-    private static JTextArea jTextArea;
+    public static JTextArea jTextArea;
+    private JScrollPane jScrollPane;
 
     public MyJframe() throws UnknownHostException {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -64,27 +68,18 @@ public class MyJframe extends JFrame {
         jButton1.addActionListener(this::actionPerformed);
         add(jButton1);
 
-        jButton2 = new JButton("send file");
+        jButton2 = new JButton("选择收取文件地址");
         jButton2.setBounds(30,160,100,20);
         jButton2.addActionListener(this::actionPerformed);
         add(jButton2);
 
-        jButton3 = new JButton("send");
-        jButton3.setBounds(400,230,200,50);
-        jButton3.addActionListener(this::actionPerformed);
-        add(jButton3);
-
         jTextArea = new JTextArea();
-        jTextArea.setBounds(230,20,400,200);
-        add(jTextArea);
-    }
+        jScrollPane = new JScrollPane();
+        jScrollPane.setBounds(230,20,400,200);
+        jScrollPane.setViewportView(jTextArea);
+        add(jScrollPane);
 
-    public static void addText(String s){
-        jTextArea.append(s);
-
-        // jTextArea.paintImmediately(jTextArea.getBounds());
-
-        jTextArea.paintImmediately(jTextArea.getX(),jTextArea.getY(),jTextArea.getWidth(),jTextArea.getHeight());
+        jTextArea.setText("message: " + "\n\n");
     }
 
     public void actionPerformed(ActionEvent e){
@@ -104,11 +99,35 @@ public class MyJframe extends JFrame {
                     JOptionPane.showMessageDialog(this, "server is running！", "提示", JOptionPane.ERROR_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "server starts success！", "提示", JOptionPane.ERROR_MESSAGE);
-                    Server.start();
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                Server.start();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+
+                        }
+                    }.start();
                 }
             }
+
+            if (e.getSource() == jButton2){
+
+                jFileChooser = new JFileChooser();
+                jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                jFileChooser.showDialog(new JLabel(),"this");
+
+                File file = jFileChooser.getSelectedFile();
+
+                SocketComment.FILE_PATH = file.getPath();
+            }
+
         } catch (Exception ex){
             System.out.println(ex);
         }
     }
+
+
 }

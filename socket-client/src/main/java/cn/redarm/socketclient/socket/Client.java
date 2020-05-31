@@ -4,9 +4,7 @@ import cn.redarm.socketclient.comm.SocketComm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -39,7 +37,24 @@ public class Client {
         writer.write(text + "\n");
 
         writer.flush();
+    }
 
-        writer.close();
+    @Async
+    public void sendFile(File file) throws IOException {
+
+        BufferedOutputStream out = new BufferedOutputStream(socket.getOutputStream());
+
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
+
+        byte[] buff = new byte[1024];
+
+        int n = 0;
+
+        while ( (n = in.read(buff)) != -1){
+            out.write(buff,0,n);
+        }
+
+        out.flush();
+        in.close();
     }
 }

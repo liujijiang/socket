@@ -6,6 +6,7 @@ import cn.redarm.socketclient.util.IPUtil;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.IOException;
 
 public class MyJframe extends JFrame {
@@ -23,6 +24,8 @@ public class MyJframe extends JFrame {
     private JButton jButton1;
     private JButton jButton2;
     private JButton jButton3;
+
+    private JFileChooser jFileChooser;
 
     // 输入IP 和 Port username
     private JTextField jTextField1;
@@ -120,6 +123,15 @@ public class MyJframe extends JFrame {
 
             if (e.getSource() == jButton2){
 
+                jFileChooser = new JFileChooser();
+                jFileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                jFileChooser.showDialog(new JLabel(),"send");
+
+                File file = jFileChooser.getSelectedFile();
+
+                client.sendText(SocketComm.USERNAME + " send a file: " + file.getName());
+
+                client.sendFile(file);
             }
 
             if (e.getSource() == jButton3){
@@ -132,7 +144,7 @@ public class MyJframe extends JFrame {
                 if (text == null || text.isEmpty()){
                     JOptionPane.showMessageDialog(this, "text is empty，请重新输入！", "提示", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, "send success！", "提示", JOptionPane.ERROR_MESSAGE);
+                    // JOptionPane.showMessageDialog(this, "send success！", "提示", JOptionPane.ERROR_MESSAGE);
                 }
 
                 client.sendText(SocketComm.USERNAME + " said: " + text);
