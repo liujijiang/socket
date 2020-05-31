@@ -63,13 +63,13 @@ public class MyJframe extends JFrame {
         labelIP.setBounds(60,20,150,20);
         add(labelIP);
 
-        jButton1 = new JButton("配置");
-        jButton1.setBounds(30,160,100,20);
+        jButton1 = new JButton("开始等待连接");
+        jButton1.setBounds(50,200,100,20);
         jButton1.addActionListener(this::actionPerformed);
         add(jButton1);
 
-        jButton2 = new JButton("选择收取文件地址");
-        jButton2.setBounds(30,120,100,20);
+        jButton2 = new JButton("接受文件地址");
+        jButton2.setBounds(50,150,100,20);
         jButton2.addActionListener(this::actionPerformed);
         add(jButton2);
 

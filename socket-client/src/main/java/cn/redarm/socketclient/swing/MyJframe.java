@@ -53,12 +53,12 @@ public class MyJframe extends JFrame {
         label1.setBounds(20,20,30,20);
         add(label1);
 
-        label2 = new JLabel("Port");
+        label2 = new JLabel("port");
         label2.setBounds(20,70,30,20);
         add(label2);
 
-        jLabel3 = new JLabel("username");
-        jLabel3.setBounds(20,120,30,20);
+        jLabel3 = new JLabel("name");
+        jLabel3.setBounds(20,120,35,20);
         add(jLabel3);
 
         jTextField1 = new JTextField(5);
@@ -73,17 +73,17 @@ public class MyJframe extends JFrame {
         jTextField3.setBounds(60,120,150,20);
         add(jTextField3);
 
-        jButton1 = new JButton("配置");
+        jButton1 = new JButton("建立连接");
         jButton1.setBounds(30,170,100,20);
         jButton1.addActionListener(this::actionPerformed);
         add(jButton1);
 
-        jButton2 = new JButton("send file");
-        jButton2.setBounds(30,200,100,20);
+        jButton2 = new JButton("发送文件");
+        jButton2.setBounds(130,230,150,50);
         jButton2.addActionListener(this::actionPerformed);
         add(jButton2);
 
-        jButton3 = new JButton("send");
+        jButton3 = new JButton("发送消息");
         jButton3.setBounds(400,230,200,50);
         jButton3.addActionListener(this::actionPerformed);
         add(jButton3);
