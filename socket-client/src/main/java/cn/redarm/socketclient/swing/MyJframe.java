@@ -11,6 +11,13 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @Author redarm
+ * @Description //TODO 窗口
+ * @Date 7:15 下午 2020/5/31
+ * @Param
+ * @return
+ **/
 public class MyJframe extends JFrame {
 
     private Client client;
@@ -20,13 +27,12 @@ public class MyJframe extends JFrame {
     private JLabel label2;
     private JLabel jLabel3;
 
-    private JPanel panelMain;
-
     // 按钮
     private JButton jButton1;
     private JButton jButton2;
     private JButton jButton3;
 
+    // 文件选择
     private JFileChooser jFileChooser;
 
     // 输入IP 和 Port username
@@ -34,6 +40,7 @@ public class MyJframe extends JFrame {
     private JTextField jTextField2;
     private JTextField jTextField3;
 
+    // 输入框
     private JTextArea jTextArea;
 
     public MyJframe() throws IOException {
@@ -103,8 +110,17 @@ public class MyJframe extends JFrame {
         add(jTextArea);
     }
 
+    /**
+     * @Author redarm
+     * @Description //TODO 事件
+     * @Date 7:16 下午 2020/5/31
+     * @Param [e]
+     * @return void
+     **/
     public void actionPerformed(ActionEvent e){
         try {
+
+            // 处理点击 建立连接 按钮
             if (e.getSource() == jButton1){
                 String port = String.valueOf(jTextField2.getText().trim());
                 String IP = String.valueOf(jTextField1.getText().trim());
@@ -124,11 +140,11 @@ public class MyJframe extends JFrame {
                 SocketComm.PORT = newPort;
                 SocketComm.USERNAME = username;
 
-                client = new Client(username);
-
-                if (!client.connected){
-                    JOptionPane.showMessageDialog(this, "connect error, server is not online", "提示", JOptionPane.ERROR_MESSAGE);
+                // 判断是否已经建立了连接
+                if (Client.connected){
+                    JOptionPane.showMessageDialog(this, "have connected to server", "提示", JOptionPane.ERROR_MESSAGE);
                 } else {
+                    client = new Client(username);
                     JOptionPane.showMessageDialog(this, "setting success！", "提示", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -136,14 +152,17 @@ public class MyJframe extends JFrame {
             // send file
             if (e.getSource() == jButton2){
 
+                // 选择文件窗口
                 jFileChooser = new JFileChooser();
                 jFileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
                 jFileChooser.showDialog(new JLabel(),"send");
 
                 File file = jFileChooser.getSelectedFile();
 
+                // 发送信息
                 client.sendText(SocketComm.USERNAME + " send a file: " + file.getName());
 
+                // 发送文件
                 client.sendFile(file);
 
                 JOptionPane.showMessageDialog(this, "send file success!", "提示", JOptionPane.ERROR_MESSAGE);
@@ -161,12 +180,10 @@ public class MyJframe extends JFrame {
                     JOptionPane.showMessageDialog(this, "text is empty，请重新输入！", "提示", JOptionPane.ERROR_MESSAGE);
                 } else {
                     // JOptionPane.showMessageDialog(this, "send success！", "提示", JOptionPane.ERROR_MESSAGE);
+                    client.sendText(SocketComm.USERNAME + " said: " + text);
+
+                    jTextArea.setText("");
                 }
-
-                client.sendText(SocketComm.USERNAME + " said: " + text);
-
-                jTextArea.setText("");
-
             }
         } catch (Exception ex){
             System.out.println(ex);

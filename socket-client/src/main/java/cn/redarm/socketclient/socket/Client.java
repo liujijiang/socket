@@ -8,12 +8,16 @@ import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * @Author redarm
+ * @Date 2020/5/30 8:03 下午
+ **/
 @Slf4j
 public class Client {
 
     private Socket socket;
 
-    public boolean connected = false;
+    public static boolean connected = false;
 
     private String username;
 
@@ -30,6 +34,13 @@ public class Client {
         }
     }
 
+    /**
+     * @Author redarm
+     * @Description //TODO 发送信息
+     * @Date 7:15 下午 2020/5/31
+     * @Param [text]
+     * @return void
+     **/
     @Async
     public void sendText(String text) throws IOException {
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -39,6 +50,13 @@ public class Client {
         writer.flush();
     }
 
+    /**
+     * @Author redarm
+     * @Description //TODO 发送文件
+     * @Date 7:15 下午 2020/5/31
+     * @Param [file]
+     * @return void
+     **/
     @Async
     public void sendFile(File file) throws IOException {
 
@@ -56,5 +74,8 @@ public class Client {
 
         out.flush();
         in.close();
+        out.close();
+
+        connected = false;
     }
 }

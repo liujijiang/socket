@@ -1,5 +1,12 @@
 package cn.redarm.socketclient.util;
 
+/**
+ * @Author redarm
+ * @Description //TODO 判断 是否是 IP
+ * @Date 7:24 下午 2020/5/31
+ * @Param 
+ * @return 
+ **/
 public class IPUtil {
 
     public static boolean isTrue(String IP){
