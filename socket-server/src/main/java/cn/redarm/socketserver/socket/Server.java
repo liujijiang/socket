@@ -1,6 +1,5 @@
 package cn.redarm.socketserver.socket;
 
-import cn.redarm.socketserver.comm.MsgManager;
 import cn.redarm.socketserver.comm.SocketComment;
 import cn.redarm.socketserver.swing.MyJframe;
 

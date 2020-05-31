@@ -64,12 +64,12 @@ public class MyJframe extends JFrame {
         add(labelIP);
 
         jButton1 = new JButton("配置");
-        jButton1.setBounds(30,120,100,20);
+        jButton1.setBounds(30,160,100,20);
         jButton1.addActionListener(this::actionPerformed);
         add(jButton1);
 
         jButton2 = new JButton("选择收取文件地址");
-        jButton2.setBounds(30,160,100,20);
+        jButton2.setBounds(30,120,100,20);
         jButton2.addActionListener(this::actionPerformed);
         add(jButton2);
 
@@ -85,15 +85,23 @@ public class MyJframe extends JFrame {
     public void actionPerformed(ActionEvent e){
         try {
             if (e.getSource() == jButton1){
-                String Port = String.valueOf(jTextField2.getText().trim());
+                String port = String.valueOf(jTextField2.getText().trim());
 
-                if (Port == null || Port.isEmpty()){
+                if (port == null || port.isEmpty()){
                     JOptionPane.showMessageDialog(this, "Port格式错误，请重新输入！", "提示", JOptionPane.ERROR_MESSAGE);
                 }
 
-                int newPort = Integer.parseInt(Port);
+                int newPort = Integer.parseInt(port);
+
+                if (newPort <=1024 || newPort >= 30000){
+                    JOptionPane.showMessageDialog(this, "system port can not be use，请重新输入！", "提示", JOptionPane.ERROR_MESSAGE);
+                }
 
                 SocketComment.PORT = newPort;
+
+                if (SocketComment.FILE_PATH == null || SocketComment.FILE_PATH.isEmpty()){
+                    JOptionPane.showMessageDialog(this, "file path error，请重新输入！", "提示", JOptionPane.ERROR_MESSAGE);
+                }
 
                 if (Server.serverUp){
                     JOptionPane.showMessageDialog(this, "server is running！", "提示", JOptionPane.ERROR_MESSAGE);

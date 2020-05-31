@@ -6,6 +6,8 @@ import cn.redarm.socketclient.util.IPUtil;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -86,8 +88,18 @@ public class MyJframe extends JFrame {
         jButton3.addActionListener(this::actionPerformed);
         add(jButton3);
 
+        // add a keyboard event
         jTextArea = new JTextArea();
         jTextArea.setBounds(230,20,400,200);
+        jTextArea.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    e.consume();
+                    jButton3.doClick();
+                }
+            }
+        });
         add(jTextArea);
     }
 
@@ -121,6 +133,7 @@ public class MyJframe extends JFrame {
                 }
             }
 
+            // send file
             if (e.getSource() == jButton2){
 
                 jFileChooser = new JFileChooser();
@@ -132,8 +145,11 @@ public class MyJframe extends JFrame {
                 client.sendText(SocketComm.USERNAME + " send a file: " + file.getName());
 
                 client.sendFile(file);
+
+                JOptionPane.showMessageDialog(this, "send file success!", "提示", JOptionPane.ERROR_MESSAGE);
             }
 
+            // send text
             if (e.getSource() == jButton3){
                 if (!client.connected){
                     JOptionPane.showMessageDialog(this, "please connect to server first！", "提示", JOptionPane.ERROR_MESSAGE);

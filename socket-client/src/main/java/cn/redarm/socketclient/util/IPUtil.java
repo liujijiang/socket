@@ -1,7 +1,5 @@
 package cn.redarm.socketclient.util;
 
-import org.springframework.stereotype.Component;
-
 public class IPUtil {
 
     public static boolean isTrue(String IP){
