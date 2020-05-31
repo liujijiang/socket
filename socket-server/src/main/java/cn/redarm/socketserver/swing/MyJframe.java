@@ -16,56 +16,39 @@ public class MyJframe extends JFrame {
 
     private JLabel labelIP;
 
-    private JPanel panelMain;
-
     // 按钮
     private JButton jButton1;
     private JButton jButton2;
     private JButton jButton3;
 
-    // 输入IP 和 Port
-    private JTextField jTextField1;
+    // Port
     private JTextField jTextField2;
 
-    private JTextArea jTextArea;
+    private static JTextArea jTextArea;
 
     public MyJframe() throws UnknownHostException {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        setSize(1344,756);
-
-        setVisible(true);
+        setSize(700,350);
 
         setLayout(null);
 
-//        final ImageIcon imageIcon1 = new ImageIcon("images/background.PNG");
-//
-//        panelMain = new JPanel() {
-//            //设置背景图片
-////            public void paintComponent(Graphics g) {
-////                g.drawImage(imageIcon1.getImage(), 0, 0, getSize().width, getSize().height, this);
-////                super.paintComponents(g);
-////            }
-//        };
-
         this.init();
+
+        setVisible(true);
     }
 
     private void init() throws UnknownHostException {
         label1 = new JLabel("IP");
-        label1.setBounds(120,100,80,20);
+        label1.setBounds(20,20,30,20);
         add(label1);
 
         label2 = new JLabel("Port");
-        label2.setBounds(120,200,80,20);
+        label2.setBounds(20,70,30,20);
         add(label2);
 
-//        jTextField1 = new JTextField(5);
-//        jTextField1.setBounds(150,100,150,20);
-//        add(jTextField1);
-
         jTextField2 = new JTextField(5);
-        jTextField2.setBounds(150,200,150,20);
+        jTextField2.setBounds(60,70,150,20);
         add(jTextField2);
 
         InetAddress address = InetAddress.getLocalHost();
@@ -73,27 +56,35 @@ public class MyJframe extends JFrame {
         String ip = address.getHostAddress().toString();
 
         labelIP = new JLabel(ip);
-        labelIP.setBounds(150,100,150,20);
+        labelIP.setBounds(60,20,150,20);
         add(labelIP);
 
         jButton1 = new JButton("配置");
-        jButton1.setBounds(135,300,100,20);
+        jButton1.setBounds(30,120,100,20);
         jButton1.addActionListener(this::actionPerformed);
         add(jButton1);
 
         jButton2 = new JButton("send file");
-        jButton2.setBounds(135,500,100,20);
+        jButton2.setBounds(30,160,100,20);
         jButton2.addActionListener(this::actionPerformed);
         add(jButton2);
 
         jButton3 = new JButton("send");
-        jButton3.setBounds(1100,600,200,50);
+        jButton3.setBounds(400,230,200,50);
         jButton3.addActionListener(this::actionPerformed);
         add(jButton3);
 
         jTextArea = new JTextArea();
-        jTextArea.setBounds(430,50,800,500);
+        jTextArea.setBounds(230,20,400,200);
         add(jTextArea);
+    }
+
+    public static void addText(String s){
+        jTextArea.append(s);
+
+        // jTextArea.paintImmediately(jTextArea.getBounds());
+
+        jTextArea.paintImmediately(jTextArea.getX(),jTextArea.getY(),jTextArea.getWidth(),jTextArea.getHeight());
     }
 
     public void actionPerformed(ActionEvent e){

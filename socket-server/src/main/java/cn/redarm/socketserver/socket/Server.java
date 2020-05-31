@@ -1,6 +1,7 @@
 package cn.redarm.socketserver.socket;
 
 import cn.redarm.socketserver.comm.SocketComment;
+import cn.redarm.socketserver.swing.MyJframe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 
 public class Server {
 
@@ -37,6 +37,7 @@ public class Server {
 
                         while ( (s = reader.readLine()) != null){
                             System.out.println(s);
+                            MyJframe.addText(s);
                         }
 
                     }

@@ -34,68 +34,57 @@ public class MyJframe extends JFrame {
     public MyJframe() throws IOException {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        setSize(1344,756);
-
-        setVisible(true);
+        setSize(700,350);
 
         setLayout(null);
 
-//        final ImageIcon imageIcon1 = new ImageIcon("images/background.PNG");
-//
-//        panelMain = new JPanel() {
-//            //设置背景图片
-////            public void paintComponent(Graphics g) {
-////                g.drawImage(imageIcon1.getImage(), 0, 0, getSize().width, getSize().height, this);
-////                super.paintComponents(g);
-////            }
-//        };
-
         this.init();
 
+        setVisible(true);
     }
 
     private void init(){
         label1 = new JLabel("IP");
-        label1.setBounds(120,100,80,20);
+        label1.setBounds(20,20,30,20);
         add(label1);
 
         label2 = new JLabel("Port");
-        label2.setBounds(120,200,80,20);
+        label2.setBounds(20,70,30,20);
         add(label2);
 
         jLabel3 = new JLabel("username");
-        jLabel3.setBounds(80,300,80,20);
+        jLabel3.setBounds(20,120,30,20);
         add(jLabel3);
 
         jTextField1 = new JTextField(5);
-        jTextField1.setBounds(150,100,150,20);
+        jTextField1.setBounds(60,20,150,20);
         add(jTextField1);
 
         jTextField2 = new JTextField(5);
-        jTextField2.setBounds(150,200,150,20);
+        jTextField2.setBounds(60,70,150,20);
         add(jTextField2);
 
         jTextField3 = new JTextField(5);
-        jTextField3.setBounds(150,300,150,20);
+        jTextField3.setBounds(60,120,150,20);
         add(jTextField3);
 
         jButton1 = new JButton("配置");
-        jButton1.setBounds(135,400,100,20);
+        jButton1.setBounds(30,170,100,20);
         jButton1.addActionListener(this::actionPerformed);
         add(jButton1);
 
         jButton2 = new JButton("send file");
-        jButton2.setBounds(135,500,100,20);
+        jButton2.setBounds(30,200,100,20);
         jButton2.addActionListener(this::actionPerformed);
         add(jButton2);
 
         jButton3 = new JButton("send");
-        jButton3.setBounds(1100,600,200,50);
+        jButton3.setBounds(400,230,200,50);
         jButton3.addActionListener(this::actionPerformed);
         add(jButton3);
 
         jTextArea = new JTextArea();
-        jTextArea.setBounds(430,50,800,500);
+        jTextArea.setBounds(230,20,400,200);
         add(jTextArea);
     }
 
@@ -134,6 +123,10 @@ public class MyJframe extends JFrame {
             }
 
             if (e.getSource() == jButton3){
+                if (!client.connected){
+                    JOptionPane.showMessageDialog(this, "please connect to server first！", "提示", JOptionPane.ERROR_MESSAGE);
+                }
+
                 String text = jTextArea.getText().trim();
 
                 if (text == null || text.isEmpty()){

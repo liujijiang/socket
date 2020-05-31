@@ -14,13 +14,7 @@ public class SocketServerApplication {
 
         // new MyJframe();
 
-        new Thread(){
-            @SneakyThrows
-            @Override
-            public void run() {
-                new MyJframe();
-            }
-        }.start();
+        new MyJframe();
     }
 
 }
