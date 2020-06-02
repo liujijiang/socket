@@ -6,9 +6,16 @@ java socket 模拟 计算机网络TCP/IP 编程
 
 目录下：
 
+linux and Mac:
 > 客户端： bash client.sh
 
 > 服务端： bash server.sh
+
+windows:
+socket目录下：
+> 客户端： jre/bin/java -jar socket-client/target/socket-client-0.0.1-SNAPSHOT.jar
+
+> 服务器端: jre/bin/java -jar socket-server/target/socket-server-0.0.1-SNAPSHOT.jar
 
 ## 使用
 
