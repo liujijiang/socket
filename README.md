@@ -34,4 +34,3 @@ socket组成：IP:端口号
 实现的功能：客户端向服务端发送信息，发送文件
 
 
-# just toy, don't laugh
